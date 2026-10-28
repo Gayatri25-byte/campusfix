@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body { @apply bg-sand-50 text-navy-900 font-sans antialiased; }
+  h1, h2, h3 { @apply font-display tracking-tight; }
+  :focus-visible { @apply outline-2 outline-offset-2 outline-teal-500; outline-style: solid; }
+}
+@layer components {
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  .input { @apply w-full rounded-lg border border-navy-200 bg-white px-3 py-2.5 text-sm placeholder:text-navy-500/50 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-400/30; }
+  .skip-link { @apply absolute left-2 top-2 z-[60] -translate-y-20 rounded-lg bg-navy-900 px-4 py-2 text-sm text-white focus:translate-y-0; }
+}
+@keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-8px) } }
+@keyframes pop { from { opacity: 0; transform: scale(.96) } to { opacity: 1; transform: none } }
+@keyframes drift { from { transform: translateX(-30px) } to { transform: translateX(30px) } }
+@keyframes draw { to { stroke-dashoffset: 0 } }
+@keyframes shimmer { 0% { background-position: -200px 0 } 100% { background-position: 200px 0 } }
+@keyframes rise { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
+@keyframes pulse-ring { 0% { transform: scale(.8); opacity: .7 } 100% { transform: scale(2.1); opacity: 0 } }
+.float { animation: float 6s ease-in-out infinite; }
+.pop { animation: pop .25s ease; }
+.drift { animation: drift 24s ease-in-out infinite alternate; }
+.rise { animation: rise .45s ease both; }
+.check-draw { stroke-dasharray: 24; stroke-dashoffset: 24; animation: draw .45s .1s ease forwards; }
+.pin-pulse { transform-box: fill-box; transform-origin: center; animation: pulse-ring 2s ease-out infinite; }
+.skeleton { background: linear-gradient(90deg, #eef2f8 25%, #f8fafc 50%, #eef2f8 75%); background-size: 400px 100%; animation: shimmer 1.4s infinite linear; }
+.bldg { transition: transform .2s ease, filter .2s ease; cursor: pointer; }
+.bldg:hover, .bldg:focus-visible { transform: translateY(-3px); filter: brightness(1.06); outline: none; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .reveal { opacity: 1; transform: none; }
+  .check-draw { stroke-dashoffset: 0; }
+}
